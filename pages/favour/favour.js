@@ -1,10 +1,9 @@
-var localData = require("../../data/data.js")
 var app = getApp()
 Page({
   data: {
     couponList: [],
     pageIndex: 0,
-    isLoading: false,
+    isLoading: true,
     loadOver: false,
     categoryList: [{ CategoryID: "", CategoryName: "其它" }, { CategoryID: "all", CategoryName: "全部" }],
     selectCategory: "all",
@@ -12,19 +11,9 @@ Page({
     selectIndex: 0,
     inputContent: "" 
   },
-  onLoad: function (options) {
-    //console.log(1);
-    this.getMortlocalCouponList()
+  onLoad: function (options) {    
+    this.getMoreCouponList()
   },
-  getMortlocalCouponList() {
-    var that = this;
-    that.setData({
-      couponList: localData.couponList.data
-    });
-   // console.log(localData.couponList.data);
-
-  },
-  
   onShow: function () {
     if (wx.getStorageSync('isDetailBack')) {
       wx.removeStorageSync('isDetailBack')
@@ -33,57 +22,48 @@ Page({
     this.setData({
       couponList: [],
       pageIndex: 0,
-      //isLoading: true,
+      isLoading: true,
       loadOver: false,
       selectCategory: wx.getStorageSync('selectCategory') == "" ? "all" : wx.getStorageSync('selectCategory'),
       showCategoryName: wx.getStorageSync('showCategoryName') == "" ? "全部" : wx.getStorageSync('showCategoryName'),
       selectIndex: wx.getStorageSync('selectIndex') == "" ? this.data.categoryList.length - 1 : wx.getStorageSync('selectIndex'),
       inputContent: wx.getStorageSync('inputContent')
     })
-    this.getMortlocalCouponList()
+    this.getMoreCouponList()
   },
-  /*
+     
   getMoreCouponList: function () {
     var that = this
     wx.request({
-      url: "https://taoquan.cillbiz.com/QueryCoupon.ashx",
+      url: "http://www.haojingke.com/index.php/api/index/myapi?",
       data: {
-        "Acount": {
-          "UserName": app.globalData.Acount.UserName,
-          "PassWord": app.globalData.Acount.PassWord
-        },
-        "query": {
-          "PageSize": 10,
-          "PageIndex": that.data.pageIndex,
-          "OrderField": "ZongHeBiLi",
-          "Direction": "DESC",
-          "ItemName": that.data.inputContent,
-          "ShareCategory": that.data.selectCategory
-        }
-      },
-      method: "POST",
+          "type":"goodslist",
+          "apikey":app.globalData.Acount.apikey,
+          "page":"that.data.pageIndex",
+          "PageSize": 20,
+      },      
+      method: "GET",
       success: function (resRequest) {
-        if (resRequest.data.Result == "请求成功") {
-          if (resRequest.data.Quans != null && resRequest.data.Quans.length > 0) {
-            resRequest.data.Quans.forEach(function (coupon) {
-              coupon.ZongHeBiLiText = parseInt(coupon.ZongHeBiLi * 100) + "%"
-              coupon.CouponEndTime = coupon.CouponEndTime.substring(0, 10)
-            })
+        if (resRequest.data.status_code == "200") {
+          if (resRequest.data.data!= null && resRequest.data.data.length > 0) {
             that.setData({
-              couponList: that.data.couponList.concat(resRequest.data.Quans),
+              couponList: resRequest.data.data,
               isLoading: false
             })
           }
           else {
             that.setData({
-              //isLoading: false,
+              isLoading: true,
               loadOver: true
             })
           }
         }
+      },
+      fail: function (resRequest){
+            console.log("fail");
       }
     })
-  },*/
+  }, 
   getCategoryList: function () {
     var that = this
     wx.request({
@@ -160,7 +140,7 @@ Page({
       isLoading: true,
       pageIndex: 0
     })
-    this.getMortlocalCouponList()
+    this.getMoreCouponList()
   },
   selectAll: function () {
     this.setData({
@@ -173,7 +153,7 @@ Page({
       selectIndex: this.data.categoryList.length - 1,
       inputContent: ""
     })
-    this.getMortlocalCouponList()
+    this.getMoreCouponList()
     wx.setStorageSync('showCategoryName', "全部")
     wx.setStorageSync('selectCategory', "all")
     wx.setStorageSync('inputContent', "")
@@ -196,7 +176,7 @@ Page({
       pageIndex: 0
     })
     wx.stopPullDownRefresh()
-    this.getMortlocalCouponList()
+    this.getMoreCouponList()
   },
   onReachBottom: function () {
     this.setData({
@@ -204,6 +184,6 @@ Page({
       loadOver: false,
       pageIndex: this.data.pageIndex + 1
     })
-    this.getMortlocalCouponList()
+    this.getMoreCouponList()
   }
 })

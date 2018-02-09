@@ -1,1 +1,1 @@
-<view><web-view src="{{couponInfo.materiaUrl}}"></web-view></view>
+<view><web-view src="{{taokouLing}}"></web-view></view>

@@ -4,8 +4,7 @@ App({
   },
   globalData: {
     Acount: {
-      UserName: "上海锡域",
-      PassWord: "jjz888"
+      "apikey":"e7be3a12988fb715"
     }
   }
 })

@@ -1,4 +1,3 @@
-//var localData = require("../../data/couponDetail.js")
 var app = getApp()
 Page({
   data: {
@@ -16,7 +15,6 @@ Page({
   onLoad: function (options) {
     this.setData({
       couponInfo: wx.getStorageSync('couponInfo')
-     // couponInfo: localData.data
     })
     if (this.data.couponInfo.PlatformType == "天猫")
       this.setData({
@@ -28,7 +26,7 @@ Page({
       showStatus: false
     })
   },  
-  
+  /*
   getCoupon: function (options){
     var that = this;
     that.setData({
@@ -39,36 +37,39 @@ Page({
     wx.navigateTo({
       url: "../shopping/shopping",
     })
-  }
-  /*
-  getCoupon: function (options) {
+  }*/
+  
+  getCoupon: function (options) {    
     var that = this;
     that.setData({
       loadingBtn: true
     })
     wx.request({
-      url: "https://taoquan.cillbiz.com/GetCouponDetail.ashx",
+      url: "http://www.haojingke.com/index.php/api/index/myapi?",
       data: {
-        "Acount": {
-          "UserName": app.globalData.Acount.UserName,
-          "PassWord": app.globalData.Acount.PassWord
-        },
-        "Condition": {
-          "ItemID": that.data.couponInfo.ItemID,
-          "CouponID": that.data.couponInfo.CouponID
-        }
+        "type": "unionurl",
+        "apikey": app.globalData.Acount.apikey,
+        "materialIds": that.data.couponInfo.skuId,
+        "couponUrl":that.data.couponInfo.couponList         
       },
       method: "POST",
-      success: function (resRequest) {
-        if (resRequest.data.Result == "请求成功") {
+      success: function (resRequest) {        
+        if (resRequest.data.status_code == "200") {          
           that.setData({
-            taoKouLing: resRequest.data.QuanDetail.TaoKouLing,
+            taoKouLing: resRequest.data.data,
             loadingBtn: false,
             showStatus: true,
-            maxLength: resRequest.data.QuanDetail.TaoKouLing.length
-          })
+            //maxLength: resRequest.data.QuanDetail.TaoKouLing.length
+          });
+          //console.log(that.data);          
         }
       }
     })
-  }*/
+    console.log(that.data.taoKouLing);
+    wx.setStorageSync("taoKouLing", that.data.taoKouLing);
+    console.log(wx.getStorageSync("taoKouLing"));
+    wx.navigateTo({
+      url: "../shopping/shopping",
+    })
+  }
 })

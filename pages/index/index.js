@@ -172,14 +172,16 @@ Page({
     wx.setStorageSync('couponInfo', this.data.couponList[e.currentTarget.dataset.index])
   },
   onPullDownRefresh: function () {
+    console.log("onPullDownRefresh");
     var i = 0;
+    i++;
     this.setData({
       couponList: [],
       loadOver: false,
       isLoading: true,
-      pageIndex: i++
+      pageIndex: i
     });
-    
+    console.log("after setData");
     console.log("before refresh");
     this.getMoreCouponList();
     console.log("after refresh");

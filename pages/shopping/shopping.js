@@ -15,13 +15,22 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this;    
-    that.setData({
+    
+    wx.getStorage({
+      key: 'taoKouLing',
+      success: function (res) {
+        console.log(res.data)
+      },
+      fail:function(){
+        console.log("fail");
+      }
+    })    
+    //this.setData({
       //couponInfo: wx.getStorageSync('couponInfo'),
-      taokouLing:wx.getStorageSync('taoKouLing')      
-    });
+      //taoKouLing:wx.getStorageSync('taoKouLing')      
+    //});
     console.log(11);
-    console.log(that.data.taoKouLing);
+    
   },
 
   /**

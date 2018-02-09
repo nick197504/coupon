@@ -89,6 +89,7 @@ Page({
             categoryList: resRequest.data.Categorys.concat(that.data.categoryList),
             selectIndex: resRequest.data.Categorys.length + 1
           })
+          console.log(categoryList);
         }
       }
     })

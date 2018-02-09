@@ -33,13 +33,14 @@ Page({
   }, 
   getMoreCouponList: function () {
     var that = this
+    console.log(that.data.pageIndex);
     wx.request({
       url: "http://www.haojingke.com/index.php/api/index/myapi?",
       data: {
         "type": "goodslist",
         "apikey": app.globalData.Acount.apikey,
         "page": "that.data.pageIndex",
-        "PageSize": 20,
+        //"PageSize": 20,
       },
       method: "GET",
       success: function (resRequest) {
@@ -63,26 +64,27 @@ Page({
       }
     })
   }, 
-  getCategoryList: function () {   
-    var that = this
-    wx.request({
-      url: "https://taoquan.cillbiz.com/GetCategory.ashx",
-      data: {
-        "Acount": {
-          "UserName": app.globalData.Acount.UserName,
-          "PassWord": app.globalData.Acount.PassWord
-        }
-      },
-      method: "POST",
-      success: function (resRequest) {
-        if (resRequest.data.Result == "请求成功") {
-          that.setData({
-            categoryList: resRequest.data.Categorys.concat(that.data.categoryList),
-            selectIndex: resRequest.data.Categorys.length + 1
-          })
-        }
-      }
-    })
+  getCategoryList: function () {
+    console.log("getCategoryList");   
+    // var that = this
+    // wx.request({
+    //   url: "https://taoquan.cillbiz.com/GetCategory.ashx",
+    //   data: {
+    //     "Acount": {
+    //       "UserName": app.globalData.Acount.UserName,
+    //       "PassWord": app.globalData.Acount.PassWord
+    //     }
+    //   },
+    //   method: "POST",
+    //   success: function (resRequest) {
+    //     if (resRequest.data.Result == "请求成功") {
+    //       that.setData({
+    //         categoryList: resRequest.data.Categorys.concat(that.data.categoryList),
+    //         selectIndex: resRequest.data.Categorys.length + 1
+    //       })
+    //     }
+    //   }
+    // })
   },
   bindPickerChange: function (e) {
     this.setData({
@@ -110,8 +112,10 @@ Page({
     wx.setStorageSync('selectIndex', e.detail.value)
   },
   selectByCategory: function (e) {
+    console.log("selectByCategory");
     var selectNum = 0
     this.data.categoryList.every(function (categoryItem, i) {
+      console.log(e.currentTarget.dataset.categoryId);
       if (categoryItem.CategoryID == e.currentTarget.dataset.categoryId) {
         selectNum = i
         return false
@@ -168,14 +172,18 @@ Page({
     wx.setStorageSync('couponInfo', this.data.couponList[e.currentTarget.dataset.index])
   },
   onPullDownRefresh: function () {
+    var i = 0;
     this.setData({
       couponList: [],
       loadOver: false,
       isLoading: true,
-      pageIndex: 0
-    })
-    wx.stopPullDownRefresh()
-    this.getMoreCouponList()
+      pageIndex: i++
+    });
+    
+    console.log("before refresh");
+    this.getMoreCouponList();
+    console.log("after refresh");
+    wx.stopPullDownRefresh();
   },
   onReachBottom: function () {
     this.setData({

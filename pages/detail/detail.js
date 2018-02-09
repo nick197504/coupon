@@ -26,19 +26,7 @@ Page({
       showStatus: false
     })
   },  
-  /*
-  getCoupon: function (options){
-    var that = this;
-    that.setData({
-      loadingBtn: true
-    })
-    console.log(that.data.couponInfo.materiaUrl);
     
-    wx.navigateTo({
-      url: "../shopping/shopping",
-    })
-  }*/
-  
   getCoupon: function (options) {    
     var that = this;
     that.setData({
@@ -61,13 +49,14 @@ Page({
             showStatus: true,
             //maxLength: resRequest.data.QuanDetail.TaoKouLing.length
           });
-          //console.log(that.data);          
+         // console.log(that.data.taoKouLing);
+          wx.setStorageSync("taoKouLing", that.data.taoKouLing);          
         }
       }
     })
-    console.log(that.data.taoKouLing);
-    wx.setStorageSync("taoKouLing", that.data.taoKouLing);
-    console.log(wx.getStorageSync("taoKouLing"));
+    //console.log(that.data.taoKouLing);
+    
+    //console.log(wx.getStorageSync("taoKouLing"));
     wx.navigateTo({
       url: "../shopping/shopping",
     })

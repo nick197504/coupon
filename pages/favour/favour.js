@@ -1,3 +1,4 @@
+var util = require("../../utils/util.js");
 var app = getApp()
 Page({
   data: {
@@ -10,6 +11,7 @@ Page({
     showCategoryName: "全部",
     selectIndex: 0,
     inputContent: "" 
+    
   },
   onLoad: function (options) {    
     this.getMoreCouponList()
@@ -46,8 +48,14 @@ Page({
       success: function (resRequest) {
         if (resRequest.data.status_code == "200") {
           if (resRequest.data.data!= null && resRequest.data.data.length > 0) {
+            var couponLocalList = resRequest.data.data;            
+            for (var i = 0; i < couponLocalList.length; i++){
+                var list = util.calculateDiscountRate(couponLocalList[i]);
+                couponLocalList[i] = list;
+            }
+            couponLocalList.sort(util.sortByDiscountRate);            
             that.setData({
-              couponList: resRequest.data.data,
+              couponList: couponLocalList,
               isLoading: false
             })
           }
@@ -64,26 +72,27 @@ Page({
       }
     })
   }, 
+ 
   getCategoryList: function () {
-    var that = this
-    wx.request({
-      url: "https://taoquan.cillbiz.com/GetCategory.ashx",
-      data: {
-        "Acount": {
-          "UserName": app.globalData.Acount.UserName,
-          "PassWord": app.globalData.Acount.PassWord
-        }
-      },
-      method: "POST",
-      success: function (resRequest) {
-        if (resRequest.data.Result == "请求成功") {
-          that.setData({
-            categoryList: resRequest.data.Categorys.concat(that.data.categoryList),
-            selectIndex: resRequest.data.Categorys.length + 1
-          })
-        }
-      }
-    })
+    // var that = this
+    // wx.request({
+    //   url: "https://taoquan.cillbiz.com/GetCategory.ashx",
+    //   data: {
+    //     "Acount": {
+    //       "UserName": app.globalData.Acount.UserName,
+    //       "PassWord": app.globalData.Acount.PassWord
+    //     }
+    //   },
+    //   method: "POST",
+    //   success: function (resRequest) {
+    //     if (resRequest.data.Result == "请求成功") {
+    //       that.setData({
+    //         categoryList: resRequest.data.Categorys.concat(that.data.categoryList),
+    //         selectIndex: resRequest.data.Categorys.length + 1
+    //       })
+    //     }
+    //   }
+    // })
   },
   bindPickerChange: function (e) {
     this.setData({

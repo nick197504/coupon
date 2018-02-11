@@ -51,7 +51,7 @@
             <view class="coupon-num">数量: {{item.wlCommissionShare}}</view>
             <view class="coupon-ratio">
               <text>优惠\n比例</text>
-              <view>{{item.discount/item.wlPrice*100}}</view>
+              <view>{{item.discountRate}}%</view>
             </view>
           </view>
         </view>

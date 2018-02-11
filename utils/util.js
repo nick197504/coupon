@@ -28,10 +28,22 @@ function sortByDiscount(a, b) {
   return b.discount - a.discount
 }
 
+function calculateDiscountRate(coupon) {
+  var rate = parseFloat(coupon.discount) * 100 / parseFloat(coupon.wlPrice);
+  coupon["discountRate"] = Math.round(rate).toString();
+  return coupon;
+}
+
+function sortByDiscountRate(a, b) {  
+  return parseInt(b.discountRate) - parseInt(a.discountRate)
+}
+
 module.exports = {
   formatTime: formatTime,
   formatNumber:formatNumber,
   sortBywlPriceAfter: sortBywlPriceAfter,
   sortBySales: sortBySales,
-  sortByDiscount:sortByDiscount
+  sortByDiscount:sortByDiscount,
+  calculateDiscountRate: calculateDiscountRate,
+  sortByDiscountRate: sortByDiscountRate
 }

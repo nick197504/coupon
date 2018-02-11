@@ -47,14 +47,13 @@ Page({
       method: "GET",
       success: function (resRequest) {
         if (resRequest.data.status_code == "200") {
-          if (resRequest.data.data != null && resRequest.data.data.length > 0) {
+          if (resRequest.data.data != null && resRequest.data.data.length > 0) {           
             var couponLocalList = resRequest.data.data;
-            couponLocalList.sort(util.sortBywlPriceAfter)
-            //console.log(couponLocalList.index.wlPrice_after);
-            //for(var i=0;i++;i<couponLocalList.length-1){
-              console.log(couponLocalList[0].wlPrice_after);
-            //}
-            
+            for (var i = 0; i < couponLocalList.length; i++) {
+              var list = util.calculateDiscountRate(couponLocalList[i]);
+              couponLocalList[i] = list;
+            }
+            couponLocalList.sort(util.sortBywlPriceAfter);            
             that.setData({
               couponList: couponLocalList,
               isLoading: false

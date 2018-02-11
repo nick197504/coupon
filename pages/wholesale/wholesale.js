@@ -47,7 +47,11 @@ Page({
       success: function (resRequest) {
         if (resRequest.data.status_code == "200") {
           if (resRequest.data.data != null && resRequest.data.data.length > 0) {
-            var couponLocalList = resRequest.data.data;
+            var couponLocalList = resRequest.data.data;            
+            for (var i = 0; i < couponLocalList.length; i++) {
+              var list = util.calculateDiscountRate(couponLocalList[i]);
+              couponLocalList[i] = list;
+            }
             couponLocalList.sort(util.sortByDiscount);
             that.setData({
               couponList: couponLocalList,

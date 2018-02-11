@@ -1,3 +1,4 @@
+var util = require("../../utils/util.js");
 var app = getApp()
 Page({
   data: {
@@ -33,32 +34,23 @@ Page({
   },
   getMoreCouponList: function () {
     var that = this
+    //console.log(that.data.pageIndex);
     wx.request({
-      url: "https://taoquan.cillbiz.com/QueryCoupon.ashx",
+      url: "http://www.haojingke.com/index.php/api/index/myapi?",
       data: {
-        "Acount": {
-          "UserName": app.globalData.Acount.UserName,
-          "PassWord": app.globalData.Acount.PassWord
-        },
-        "query": {
-          "PageSize": 10,
-          "PageIndex": that.data.pageIndex,
-          "OrderField": "Jian",
-          "Direction": "DESC",
-          "ItemName": that.data.inputContent,
-          "ShareCategory": that.data.selectCategory
-        }
+        "type": "goodslist",
+        "apikey": app.globalData.Acount.apikey,
+        "page": that.data.pageIndex,
+        //"PageSize": 20,
       },
-      method: "POST",
+      method: "GET",
       success: function (resRequest) {
-        if (resRequest.data.Result == "请求成功") {
-          if (resRequest.data.Quans != null && resRequest.data.Quans.length > 0) {
-            resRequest.data.Quans.forEach(function (coupon) {
-              coupon.ZongHeBiLiText = parseInt(coupon.ZongHeBiLi * 100) + "%"
-              coupon.CouponEndTime = coupon.CouponEndTime.substring(0, 10)
-            })
+        if (resRequest.data.status_code == "200") {
+          if (resRequest.data.data != null && resRequest.data.data.length > 0) {
+            var couponLocalList = resRequest.data.data;
+            couponLocalList.sort(util.sortByDiscount);
             that.setData({
-              couponList: that.data.couponList.concat(resRequest.data.Quans),
+              couponList: couponLocalList,
               isLoading: false
             })
           }
@@ -69,30 +61,33 @@ Page({
             })
           }
         }
-      }
-    })
-  },
-  getCategoryList: function () {
-    var that = this
-    wx.request({
-      url: "https://taoquan.cillbiz.com/GetCategory.ashx",
-      data: {
-        "Acount": {
-          "UserName": app.globalData.Acount.UserName,
-          "PassWord": app.globalData.Acount.PassWord
-        }
       },
-      method: "POST",
-      success: function (resRequest) {
-        if (resRequest.data.Result == "请求成功") {
-          that.setData({
-            categoryList: resRequest.data.Categorys.concat(that.data.categoryList),
-            selectIndex: resRequest.data.Categorys.length + 1
-          })
-          console.log(categoryList);
-        }
+      fail: function (resRequest) {
+        console.log("getMoreCouponList fail");
       }
     })
+  }, 
+  getCategoryList: function () {
+    // var that = this
+    // wx.request({
+    //   url: "https://taoquan.cillbiz.com/GetCategory.ashx",
+    //   data: {
+    //     "Acount": {
+    //       "UserName": app.globalData.Acount.UserName,
+    //       "PassWord": app.globalData.Acount.PassWord
+    //     }
+    //   },
+    //   method: "POST",
+    //   success: function (resRequest) {
+    //     if (resRequest.data.Result == "请求成功") {
+    //       that.setData({
+    //         categoryList: resRequest.data.Categorys.concat(that.data.categoryList),
+    //         selectIndex: resRequest.data.Categorys.length + 1
+    //       })
+    //       console.log(categoryList);
+    //     }
+    //   }
+    // })
   },
   bindPickerChange: function (e) {
     this.setData({

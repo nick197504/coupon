@@ -39,7 +39,7 @@ Page({
       data: {
           "type":"goodslist",
           "apikey":app.globalData.Acount.apikey,
-          "page":"that.data.pageIndex",
+          "page":that.data.pageIndex,
           "PageSize": 20,
       },      
       method: "GET",
@@ -169,12 +169,14 @@ Page({
     wx.setStorageSync('couponInfo', this.data.couponList[e.currentTarget.dataset.index])
   },
   onPullDownRefresh: function () {
+   // console.log(this.data.pageIndex);
     this.setData({
       couponList: [],
       loadOver: false,
       isLoading: true,
       pageIndex: 0
     })
+    console.log(this.data.pageIndex);
     wx.stopPullDownRefresh()
     this.getMoreCouponList()
   },

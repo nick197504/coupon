@@ -41,7 +41,7 @@
               <view class="goods-price-coupon">￥{{item.wlPrice_after}}</view>
               <view class="goods-sales">月销量: {{item.sales}}</view>
             </view>
-            <view class="coupon-denomination">{{item.CouponDenomination}}</view>
+            <view class="coupon-denomination">{{item.quota==null?"无使用限制":"满"+item.quota+"元"}} 减{{item.discount}}元</view>
           </view>
         </view>
         <view class="coupon-content">

@@ -16,7 +16,22 @@ function formatNumber(n) {
   return n[1] ? n : '0' + n
 }
 
+function sortBywlPriceAfter(a, b) {
+  return a.wlPrice_after - b.wlPrice_after
+}
+
+function sortBySales(a, b) {
+  return b.sales - a.sales
+}
+
+function sortByDiscount(a, b) {
+  return b.discount - a.discount
+}
 
 module.exports = {
-  formatTime: formatTime
+  formatTime: formatTime,
+  formatNumber:formatNumber,
+  sortBywlPriceAfter: sortBywlPriceAfter,
+  sortBySales: sortBySales,
+  sortByDiscount:sortByDiscount
 }

@@ -1,3 +1,4 @@
+var util = require("../../utils/util.js")
 var app = getApp()
 Page({
   data: {
@@ -9,7 +10,8 @@ Page({
     selectCategory: "all",
     showCategoryName: "全部",
     selectIndex: 0,
-    inputContent: ""
+    inputContent: "",
+    discountRate:0
   },
   onLoad: function (options) {    
     this.getCategoryList()
@@ -33,21 +35,28 @@ Page({
   }, 
   getMoreCouponList: function () {
     var that = this
-    console.log(that.data.pageIndex);
+    //console.log(that.data.pageIndex);
     wx.request({
       url: "http://www.haojingke.com/index.php/api/index/myapi?",
       data: {
         "type": "goodslist",
         "apikey": app.globalData.Acount.apikey,
-        "page": "that.data.pageIndex",
+        "page": that.data.pageIndex,
         //"PageSize": 20,
       },
       method: "GET",
       success: function (resRequest) {
         if (resRequest.data.status_code == "200") {
           if (resRequest.data.data != null && resRequest.data.data.length > 0) {
+            var couponLocalList = resRequest.data.data;
+            couponLocalList.sort(util.sortBywlPriceAfter)
+            //console.log(couponLocalList.index.wlPrice_after);
+            //for(var i=0;i++;i<couponLocalList.length-1){
+              console.log(couponLocalList[0].wlPrice_after);
+            //}
+            
             that.setData({
-              couponList: resRequest.data.data,
+              couponList: couponLocalList,
               isLoading: false
             })
           }
@@ -60,7 +69,7 @@ Page({
         }
       },
       fail: function (resRequest) {
-        console.log("fail");
+        console.log("getMoreCouponList fail");
       }
     })
   }, 
@@ -137,6 +146,7 @@ Page({
     wx.setStorageSync('selectIndex', selectNum)
   },
   selectByItemName: function () {
+    console.log("selectByItemName");
     this.setData({
       couponList: [],
       loadOver: false,
@@ -172,19 +182,17 @@ Page({
     wx.setStorageSync('couponInfo', this.data.couponList[e.currentTarget.dataset.index])
   },
   onPullDownRefresh: function () {
-    console.log("onPullDownRefresh");
-    var i = 0;
-    i++;
+   //console.log("onPullDownRefresh");   
     this.setData({
       couponList: [],
       loadOver: false,
       isLoading: true,
-      pageIndex: i
+      pageIndex: 0
     });
-    console.log("after setData");
-    console.log("before refresh");
+    //console.log("after setData");
+    //console.log("before refresh");
     this.getMoreCouponList();
-    console.log("after refresh");
+   // console.log("after refresh");
     wx.stopPullDownRefresh();
   },
   onReachBottom: function () {

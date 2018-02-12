@@ -17,7 +17,7 @@
     <view class="coupon-info-item-des">
       <view class="coupon-des">优惠券ID: {{couponInfo.s_id}}</view>
       <view class="coupon-des">剩余优惠券: {{couponInfo.wlCommissionShare}}</view>
-      <view class="coupon-des">优惠券结束时间: {{couponInfo.endTime}}</view>
+      <view class="coupon-des">优惠券结束时间: {{couponInfo.endTime}}, 仅供参考</view>
     </view>
   </view>
   <view id="shop">
@@ -26,7 +26,7 @@
     <view id="shop-name">店铺名称：{{couponInfo.ShopName}}</view>
   </view>
   <view id="get-coupon">
-    <button bindtap="getCoupon" type="warn" loading="{{loadingBtn}}">购买</button>
+    <button bindtap="getCoupon" type="warn" loading="{{loadingBtn}}">领<text decode="{{true}}" space="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>券</button>
   </view>
   <!--<view hidden="{{showStatus ? false : true}}" id="mask">
     <view id="tao-kou-ling">

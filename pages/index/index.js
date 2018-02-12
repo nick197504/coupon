@@ -34,8 +34,7 @@ Page({
     this.getMoreCouponList()
   }, 
   getMoreCouponList: function () {
-    var that = this
-    //console.log(that.data.pageIndex);
+    var that = this   
     wx.request({
       url: "http://www.haojingke.com/index.php/api/index/myapi?",
       data: {

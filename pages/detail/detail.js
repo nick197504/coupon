@@ -1,3 +1,4 @@
+var util = require("../../utils/util.js");
 var app = getApp()
 Page({
   data: {
@@ -7,14 +8,18 @@ Page({
     loadingBtn: false,
     showStatus: false,
     taoKouLing: "",
-    maxLength: 0
+    maxLength: 0    
   },
   onShow: function () {
     wx.setStorageSync('isDetailBack', true)
   },
-  onLoad: function (options) {
+  onLoad: function (options) {    
+    var couponLocalList = wx.getStorageSync('couponInfo');
+    var endTime = util.formatTime(couponLocalList.endTime);
+   // console.log(endTime);
+    couponLocalList.endTime = endTime;
     this.setData({
-      couponInfo: wx.getStorageSync('couponInfo')
+      couponInfo: couponLocalList
     })
     if (this.data.couponInfo.PlatformType == "天猫")
       this.setData({

@@ -53,7 +53,7 @@ Page({
                 var list = util.calculateDiscountRate(couponLocalList[i]);
                 couponLocalList[i] = list;
             }
-            couponLocalList.sort(util.sortByDiscountRate);            
+            couponLocalList.sort(util.sortByDiscountRate);           
             that.setData({
               couponList: couponLocalList,
               isLoading: false
@@ -175,10 +175,9 @@ Page({
     wx.setStorageSync('inputContent', e.detail.value)
   },
   setCouponInfo: function (e) {
-    wx.setStorageSync('couponInfo', this.data.couponList[e.currentTarget.dataset.index])
+    wx.setStorageSync('couponInfo', this.data.couponList[e.currentTarget.dataset.index])    
   },
-  onPullDownRefresh: function () {
-   // console.log(this.data.pageIndex);
+  onPullDownRefresh: function () {  
     this.setData({
       couponList: [],
       loadOver: false,

@@ -1,5 +1,7 @@
 function formatTime(date) {
-  var year = date.getFullYear()
+  var date = new Date(parseInt(date)*1000);
+  //console.log(date.get);
+  var year = date.getFullYear();
   var month = date.getMonth() + 1
   var day = date.getDate()
 

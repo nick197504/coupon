@@ -121,7 +121,7 @@ Page({
   selectByCategory: function (e) {
     console.log("selectByCategory");
     var selectNum = 0
-    console.log(this.data.categoryList);
+    console.log(this.data.categoryList);    
     this.data.categoryList.every(function (categoryItem, i) {
       console.log(e.currentTarget.dataset.categoryId);
       if (categoryItem.CategoryID == e.currentTarget.dataset.categoryId) {
@@ -139,7 +139,9 @@ Page({
       selectCategory: e.currentTarget.dataset.categoryId,
       selectIndex: selectNum,
     })
-    this.getMoreCouponList()
+    this.getMoreCouponList();
+    //console.log(this.data.couponList);
+    console.log(util.sortByCategory(e.currentTarget.dataset.categoryId));
     wx.setStorageSync('showCategoryName', "全部")
     wx.setStorageSync('selectCategory', e.currentTarget.dataset.categoryId)
     wx.setStorageSync('selectIndex', selectNum)

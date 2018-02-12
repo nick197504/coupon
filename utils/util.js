@@ -40,6 +40,22 @@ function sortByDiscountRate(a, b) {
   return parseInt(b.discountRate) - parseInt(a.discountRate)
 }
 
+function sortByCategory(categoryId){
+  var categoryList = [{id:"c100",name:"家居"},{id:"c010",name:"女装"},{id:"c110",name:"美食"}];
+  var category = "";  
+  var reg = new RegExp(categoryId,i);
+  for(var i=0;i<categoryList.length;i++){
+    console.log(reg.test(categoryList[i].id));
+    if ("" != categoryId && categoryList[i].id.match(reg)){
+      category = categoryList[i].name;
+      console.log(category);
+    }    
+  }
+ return category;
+//  var reg = new RegExp(categoryList);
+
+}
+
 module.exports = {
   formatTime: formatTime,
   formatNumber:formatNumber,
@@ -47,5 +63,6 @@ module.exports = {
   sortBySales: sortBySales,
   sortByDiscount:sortByDiscount,
   calculateDiscountRate: calculateDiscountRate,
-  sortByDiscountRate: sortByDiscountRate
+  sortByDiscountRate: sortByDiscountRate,
+  sortByCategory: sortByCategory
 }

@@ -121,7 +121,7 @@ Page({
   selectByCategory: function (e) {
     console.log("selectByCategory");
     var selectNum = 0
-    console.log(this.data.categoryList);    
+    //console.log(this.data.categoryList);    
     this.data.categoryList.every(function (categoryItem, i) {
       console.log(e.currentTarget.dataset.categoryId);
       if (categoryItem.CategoryID == e.currentTarget.dataset.categoryId) {

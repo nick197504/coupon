@@ -41,19 +41,14 @@ function sortByDiscountRate(a, b) {
 }
 
 function sortByCategory(categoryId){
-  var categoryList = [{id:"c100",name:"家居"},{id:"c010",name:"女装"},{id:"c110",name:"美食"}];
-  var category = "";  
-  var reg = new RegExp(categoryId,i);
+  var categoryList = [{id:"C100",name:"家居"},{id:"C010",name:"女装"},{id:"C110",name:"美食"}];
+  var category = "";
   for(var i=0;i<categoryList.length;i++){
-    console.log(reg.test(categoryList[i].id));
-    if ("" != categoryId && categoryList[i].id.match(reg)){
+    if ("" != categoryId && categoryId == categoryList[i].id){
       category = categoryList[i].name;
-      console.log(category);
-    }    
+    } 
   }
  return category;
-//  var reg = new RegExp(categoryList);
-
 }
 
 module.exports = {

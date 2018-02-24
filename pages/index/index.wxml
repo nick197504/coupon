@@ -6,7 +6,7 @@
       <image id="search-img" src="../../images/search.png" bindtap="selectByItemName"></image>
     </label>
   </view>
-  <view id="category">
+  <!--<view id="category">
     <view class="category-item{{selectCategory=='C100'?' category-select':''}}" bindtap="selectByCategory" data-category-id="C100">
       <view>
         <image src="../../images/home.png"></image>家居</view>
@@ -18,8 +18,8 @@
     <view class="category-item{{selectCategory=='C110'?' category-select':''}}" bindtap="selectByCategory" data-category-id="C110">
       <view>
         <image src="../../images/food.png"></image>美食</view>
-    </view>
-    <view class="category-item category-item-last{{selectCategory!='C100'&&selectCategory!='C010'&&selectCategory!='C110'?' category-select':''}}" bindtap="showCategoryList">
+    </view>-->
+    <!--<view class="category-item category-item-last{{selectCategory!='C100'&&selectCategory!='C010'&&selectCategory!='C110'?' category-select':''}}" bindtap="showCategoryList">
       <view>
         <picker bindchange="bindPickerChange" value="{{selectIndex}}" range="{{categoryList}}" range-key="CategoryName">
           <view class="picker">
@@ -27,7 +27,7 @@
         </picker>
       </view>
     </view>
-  </view>
+  </view>-->
   <view id="coupon-list">
     <navigator wx:for="{{couponList}}" wx:key="item.ItemID" url="../detail/detail" bindtap="setCouponInfo" data-index="{{index}}" >
       <view class="coupon-item">

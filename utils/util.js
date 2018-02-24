@@ -48,6 +48,9 @@ function sortByCategory(categoryId){
       category = categoryList[i].name;
     } 
   }
+  //var reg = new RegExp(category);
+  //var couponLocalList = [];
+  
  return category;
 }
 

@@ -9,8 +9,9 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "1.9.1",
-	"appid": "touristappid",
-	"projectname": "E-Coupon",
+	"appid": "wx775daca596296e78",
+  "secert":"75d4bc93649fbd61cf47acd13c4103be",
+	"projectname": "nickCoupon",
 	"condition": {
 		"search": {
 			"current": -1,

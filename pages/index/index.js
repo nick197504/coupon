@@ -36,7 +36,7 @@ Page({
   getMoreCouponList: function () {
     var that = this   
     wx.request({
-      url: "http://www.haojingke.com/index.php/api/index/myapi?",
+      url: "https://www.nicksun.xyz/weApp?",
       data: {
         "type": "goodslist",
         "apikey": app.globalData.Acount.apikey,

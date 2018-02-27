@@ -38,7 +38,7 @@ Page({
       loadingBtn: true
     })
     wx.request({
-      url: "http://www.haojingke.com/index.php/api/index/myapi?",
+      url: "https://www.nicksun.xyz/weApp?",
       data: {
         "type": "unionurl",
         "apikey": app.globalData.Acount.apikey,

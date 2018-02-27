@@ -5,8 +5,7 @@
     "pages/hot/hot",
     "pages/wholesale/wholesale",
     "pages/detail/detail",
-    "pages/template/template",
-    "pages/shopping/shopping"
+    "pages/template/template"
   ],
   "window": {
     "backgroundTextStyle": "dark",

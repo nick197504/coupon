@@ -53,17 +53,9 @@ Page({
             loadingBtn: false,
             showStatus: true,
             //maxLength: resRequest.data.QuanDetail.TaoKouLing.length
-          });
-         // console.log(that.data.taoKouLing);
-          wx.setStorageSync("taoKouLing", that.data.taoKouLing);          
-        }
+          });         
+         }
       }
-    })
-    //console.log(that.data.taoKouLing);
-    
-    //console.log(wx.getStorageSync("taoKouLing"));
-    wx.navigateTo({
-      url: "../shopping/shopping",
-    })
+    })    
   }
 })

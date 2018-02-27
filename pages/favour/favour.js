@@ -45,7 +45,7 @@ Page({
           "PageSize": 20,
       },      
       method: "GET",
-      success: function (resRequest) {
+      success: function (resRequest) {       
         if (resRequest.data.status_code == "200") {
           if (resRequest.data.data!= null && resRequest.data.data.length > 0) {
             var couponLocalList = resRequest.data.data;            
@@ -53,11 +53,11 @@ Page({
                 var list = util.calculateDiscountRate(couponLocalList[i]);
                 couponLocalList[i] = list;
             }
-            couponLocalList.sort(util.sortByDiscountRate);           
+            couponLocalList.sort(util.sortByDiscountRate);                
             that.setData({
               couponList: couponLocalList,
               isLoading: false
-            })
+            })           
           }
           else {
             that.setData({
@@ -175,6 +175,11 @@ Page({
     wx.setStorageSync('inputContent', e.detail.value)
   },
   setCouponInfo: function (e) {
+    try {
+      wx.removeStorageSync('couponInfo');
+    } catch (e) {
+     console.log(e);
+    }    
     wx.setStorageSync('couponInfo', this.data.couponList[e.currentTarget.dataset.index])    
   },
   onPullDownRefresh: function () {  

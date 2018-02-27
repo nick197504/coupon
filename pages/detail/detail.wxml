@@ -28,17 +28,17 @@
   <view id="get-coupon">
     <button bindtap="getCoupon" type="warn" loading="{{loadingBtn}}">领<text decode="{{true}}" space="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>券</button>
   </view>
-  <!--<view hidden="{{showStatus ? false : true}}" id="mask">
+  <view hidden="{{showStatus ? false : true}}" id="mask">
     <view id="tao-kou-ling">
-      <view id="tao-kou-ling-title">淘口令购买
+      <view id="tao-kou-ling-title">领券链接
         <icon id="closed" type="cancel" size="30" color="#fff" bindtap="hideView" />
       </view>
       <view id="tao-kou-ling-content">
         <view id="copy-method">点击文本后，长按选择“全部复制”</view>
         <input id="tao-kou-ling-text" value="{{taoKouLing}}" maxlength="{{maxLength}}" />
       </view>
-      <view id="explain">复制之后，请打开【手机淘宝】购买！</view>
+      <view id="explain">复制之后，请打开【手机浏览器】购买！</view>
     </view>
-  </view>-->
+  </view>
   <view id="clear"></view>
 </view>

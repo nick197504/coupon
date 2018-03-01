@@ -11,7 +11,12 @@ Page({
     maxLength: 0    
   },
   onShow: function () {
-    wx.setStorageSync('isDetailBack', true)
+    wx.setStorageSync('isDetailBack', true);    
+    // try {
+    //   wx.removeStorageSync('couponInfo');
+    // } catch (e) {
+    //  console.log(e);
+    // } 
   },
   onLoad: function (options) {    
     var couponLocalList = wx.getStorageSync('couponInfo');

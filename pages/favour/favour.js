@@ -175,11 +175,12 @@ Page({
     wx.setStorageSync('inputContent', e.detail.value)
   },
   setCouponInfo: function (e) {
-    try {
-      wx.removeStorageSync('couponInfo');
-    } catch (e) {
-     console.log(e);
-    }    
+    wx.clearStorageSync();
+    // try {
+    //   wx.removeStorageSync('couponInfo');
+    // } catch (e) {
+    //  console.log(e);
+    // }    
     wx.setStorageSync('couponInfo', this.data.couponList[e.currentTarget.dataset.index])    
   },
   onPullDownRefresh: function () {  
